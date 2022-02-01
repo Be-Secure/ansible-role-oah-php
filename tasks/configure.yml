@@ -1,5 +1,6 @@
 ---
 - name: Ensure configuration directories exist.
+  become: true
   file:
     path: "{{ item }}"
     state: directory
@@ -10,6 +11,7 @@
     - "{{ php_extension_conf_paths }}"
 
 - name: Place PHP configuration file in place.
+  become: true
   template:
     src: php.ini.j2
     dest: "{{ item }}/php.ini"
