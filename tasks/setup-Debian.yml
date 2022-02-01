@@ -3,6 +3,7 @@
   apt: update_cache=yes cache_valid_time=86400
 
 - name: Ensure PHP packages are installed.
+  become: true
   apt:
     name: "{{ php_packages + php_packages_extra }}"
     state: "{{ php_packages_state }}"
@@ -11,6 +12,7 @@
   notify: restart webserver
 
 - name: Delete APCu configuration file if this role will provide one.
+  become: true
   file:
     path: "{{ item }}/{{ php_apc_conf_filename }}"
     state: absent
@@ -19,6 +21,7 @@
   notify: restart webserver
 
 - name: Delete OpCache configuration file if this role will provide one.
+  become: true
   file:
     path: "{{ item }}/{{ php_opcache_conf_filename }}"
     state: absent
